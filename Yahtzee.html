@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Yahtzee.css">
+    <title>Yahtzee</title>
+</head>
+<body>
+    <div id = 'diceDiv'>
+    </div>
+    <button type="button" id="runButton" onclick="startGame()">Start Game</button>
+    <div id= 'scoreCardDiv'>
+        <table id='scoreCardTable'>
+            <tr>
+                <th>Upper Section</th>
+            </tr>
+            <tr>
+                <th>Catagory</th>
+                <th>How to Score</th>
+                <th>Score</th>
+                <th>Potential Score</th>
+                <th>Probability</td>
+            </tr>
+            <tr>
+                <td>Aces</td>
+                <td>Sum of all the ones</td>
+                <td id="1upper"></td>
+                <td id="1upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Twos</td>
+                <td>Sum of all the twos</td>
+                <td id="2upper"></td>
+                <td id="2upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Threes</td>
+                <td>Sum of all the threes</td>
+                <td id="3upper"></td>
+                <td id="3upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Fours</td>
+                <td>Sum of all the fours</td>
+                <td id="4upper"></td>
+                <td id="4upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Fives</td>
+                <td>Sum of all the Fives</td>
+                <td id="5upper"></td>
+                <td id="5upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Sixes</td>
+                <td>Sum of all the Sixes</td>
+                <td id="6upper"></td>
+                <td id="6upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+        <!--
+            <tr>
+                <td>Total Score</td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bonus</td>
+                <td>If total score is 63 or higher</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>Of Upper Section</td>
+                <td></td>
+            </tr>
+            <tr>
+        -->
+            </tr>
+            <tr>
+                <th>Lower Section</th>
+            </tr>
+            <tr>
+                <td>3 of a kind</td>
+                <td>Add Total Of All Dice</td>
+                <td id="3ofaKind"></td>
+                <td id="3ofaKindPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>4 of a kind</td>
+                <td>Add Total Of All Dice</td>
+                <td id="4ofaKind"></td>
+                <td id="4ofaKindPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Full House</td>
+                <td>Score 25</td>
+                <td id="fullHouse"></td>
+                <td id="fullHousePotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Small Straight</td>
+                <td>Sequence of 4<br />Score 30</td>
+                <td id="smallStraight"></td>
+                <td id="smallStraightPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Large Straight</td>
+                <td>Sequence of 5<br />Score 40</td>
+                <td id="largeStraight"></td>
+                <td id="largeStraightPotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Yahtzee</td>
+                <td>5 Of a Kind<br />Score 50</td>
+                <td id="yahtzee"></td>
+                <td id="yahtzeePotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Chance</td>
+                <td>Score Total Of All 5 Dice</td>
+                <td id="chance"></td>
+                <td id="chancePotential" class="unselectedScore" onclick="selectScore(id)"></td>
+                <td></td>
+            </tr>
+        <!--
+            <tr>
+                <td>Yahtzee Bonus</td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>Of Lower Section</td>
+            </tr>
+            <tr>
+                <td>Total</td>
+                <td>Of Upper Section</td>
+            </tr>
+            <tr>
+                <td>Grand Total</td>
+            </tr>
+        -->
+        </table>
+    </div>
+    <script src="Yahtzee.js"></script>
+</body>
+</html>

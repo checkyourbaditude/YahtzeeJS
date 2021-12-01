@@ -1,0 +1,44 @@
+/*
+
+Trying to add features to both classes? 
+
+.diceUnselected .diceSelected{
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    margin: 5px;
+}
+*/
+
+.diceSelected {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    margin: 5px;
+    background: yellow;
+    border: solid 2px red;
+    color:grey
+}
+
+.diceUnselected {
+    width: 50px;
+    height: 50px;
+    font-size: 25px;
+    margin: 5px;
+    background: none;
+    border: dotted 2px black;
+}
+
+.unselectedScore {
+    background: white;
+}
+
+.selectedScore {
+    background: yellow;
+    border: solid 2px red;
+    color:grey
+}
+
+#scoreCardTable {
+    visibility: hidden;
+}
