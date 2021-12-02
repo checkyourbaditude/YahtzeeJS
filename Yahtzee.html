@@ -11,6 +11,7 @@
     <div id = 'diceDiv'>
     </div>
     <button type="button" id="runButton" onclick="startGame()">Start Game</button>
+    <button type="button" id="scoreButton" onclick="scoreRound()">Score Round</button>
     <div id= 'scoreCardDiv'>
         <table id='scoreCardTable'>
             <tr>
@@ -65,12 +66,13 @@
                 <td id="6upperPotential" class="unselectedScore" onclick="selectScore(id)"></td>
                 <td></td>
             </tr>
-        <!--
+        
             <tr>
-                <td>Total Score</td>
+                <td >Total Score</td>
                 <td></td>
-                <td></td>
+                <td id = "scoreUpper"></td>
             </tr>
+        <!--
             <tr>
                 <td>Bonus</td>
                 <td>If total score is 63 or higher</td>
@@ -143,9 +145,11 @@
                 <td></td>
                 <td></td>
             </tr>
+        -->
             <tr>
                 <td>Total</td>
                 <td>Of Lower Section</td>
+                <td id="scoreLower"></td>
             </tr>
             <tr>
                 <td>Total</td>
@@ -154,7 +158,6 @@
             <tr>
                 <td>Grand Total</td>
             </tr>
-        -->
         </table>
     </div>
     <script src="Yahtzee.js"></script>

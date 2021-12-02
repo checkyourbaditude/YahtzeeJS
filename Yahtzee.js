@@ -106,6 +106,9 @@ function rollDice(){
     //Begin the scoring process
     Scoring(diceHandArray);
 
+    //function to add the scoring button
+    showScoringButton();
+
     rollNumber++;
 
     return;
@@ -264,6 +267,38 @@ function totalDice(diceHand){
     return diceTotal;
 }
 
+function scoreRound(){
+
+    //check if the values are null, then add zero if null
+    if(document.getElementById("scoreUpper").getAttribute("value") === null){
+        document.getElementById("scoreUpper").setAttribute("value",0);
+    }
+
+    if(document.getElementById("scoreLower").getAttribute("value") === null){
+        document.getElementById("scoreLower").setAttribute("value",0);
+    }
+
+    //find the node that needs scoring
+    let scoreSelection = document.getElementsByClassName("selectedScore");
+
+    //add the score to the totals
+    if(scoreSelection[0].getAttribute('id').includes("upper")){
+        updateElementValue("scoreUpper",(parseInt(document.getElementById("scoreUpper").getAttribute("value")))+parseInt(scoreSelection[0].getAttribute("value")));
+    }
+    else{
+        updateElementValue("scoreLower",(parseInt(document.getElementById("scoreLower").getAttribute("value")))+parseInt(scoreSelection[0].getAttribute("value")));
+    }
+
+    scoreSelection[0].setAttribute("onclick","");
+    scoreSelection[0].setAttribute("class","unselectedScore");
+}
+
+//adds the scoring button
+function showScoringButton(){
+    console.log("Making score button visible...")
+    document.getElementById("scoreButton").style.visibility="visible";;
+}
+
 //updates the inner HTML and value attribute
 function updateElementValue(elementID,value){
     document.getElementById(elementID).innerHTML = value;
@@ -292,14 +327,13 @@ function selectScore(id){
     let highlightedClass = document.getElementById(id).getAttribute("class");
     let highlightedNodes = document.getElementsByClassName("selectedScore");
 
-    //iterate through the selected node and remove all highlighted nodes
-    for (let i=0; i<highlightedNodes.length;i++){
-        highlightedNodes[i].className = "unselectedScore";
+    if(highlightedNodes.length === 1){
+        updateElementValue(highlightedNodes[0].id.replace("Potential",""),"");
+        document.getElementById(highlightedNodes[0].id).setAttribute("class", "unselectedScore");
     }
 
     //update the value to be selected
     if(highlightedClass === "unselectedScore"){
-        console.log("Potential Value:"+document.getElementById(id).getAttribute("value"));
         document.getElementById(id).setAttribute("class", "selectedScore");
         updateElementValue(id.replace("Potential",""),document.getElementById(id).getAttribute("value"));
         return;
@@ -319,83 +353,3 @@ function removeAllChildNodes(parent) {
         parent.removeChild(parent.firstChild);
     }
 }
-
-/*
-
-function startGame(){
-    //add highlight tag to all dice buttons after click
-    
-    for(let i=0;i<5;i++){
-        let diceTag = document.getElementById('dice'+(i+1));
-        console.log(diceTag);
-        diceTag.setAttribute("onclick", "highlightTag(this.id)");
-    }
-    
-
-    //update the roll dice button to remove the startGame function from onclick attribute
-    document.getElementById("runButton").setAttribute("onclick","rollDice()");
-    document.getElementById("runButton").innerHTML = "Roll";
-
-    //roll the dice after adding attributes to elements
-    rollDice();
-
-    return;
-}
-
-function arrangeDice() {
-    //define array
-    let diceHand = [];
-
-    //create an array of values in player's hand
-    for(let i=0;i<5;i++){
-        diceHand.push(parseInt(document.getElementById('dice'+(i+1)).innerHTML));
-    }
-
-    //sort the hand
-    diceHand.sort();
-
-    //update each html element with sorted value
-    for(let j=0;j<5;j++){
-        //check to see if the element is highlighted
-        let highlighted = document.getElementById('dice'+(j+1)).getAttribute("class");
-
-        //make sure the highlighted dice are kept highlighted for less confusion
-        if(highlighted === "diceSelected"){
-            document.getElementById('dice'+(j+1)).setAttribute("class","diceSelected");
-        }
-
-        //update the remainder of the elements
-        document.getElementById('dice'+(j+1)).innerHTML = diceHand[j];
-        document.getElementById('dice'+(j+1)).setAttribute("value",diceHand[j]);
-
-    }
-}
-
-
-function increaseNumber(){
-    let numberTag = document.getElementById("number");
-    let number = Number(document.getElementById('number').innerHTML);
-    console.log(number);
-
-    //increment the number inside the HTML
-    number++;
-    console.log(number);
-
-    //update the inner HTML of the tag
-    numberTag.innerHTML= number;
-}
-
-function decreaseNumber(){
-    let numberTag = document.getElementById("number");
-    let number = Number(document.getElementById('number').innerHTML);
-    console.log(number);
-
-    //increment the number inside the HTML
-    number--;
-    console.log(number);
-
-    //update the inner HTML of the tag
-    numberTag.innerHTML= number;
-}
-
-*/

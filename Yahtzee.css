@@ -42,3 +42,7 @@ Trying to add features to both classes?
 #scoreCardTable {
     visibility: hidden;
 }
+
+#scoreButton {
+    visibility: hidden;
+}
