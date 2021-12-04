@@ -15,6 +15,7 @@ function startGame(){
 
 
 function rollDice(){
+    
     //create array for nodes and holding dice
     let diceHandArray = [];
     let diceKeptArray = [];
@@ -109,6 +110,7 @@ function rollDice(){
     //function to add the scoring button
     showScoringButton();
 
+    //increment the roll number
     rollNumber++;
 
     return;
@@ -148,112 +150,130 @@ function Scoring(diceHand){
 
 //scores the upper scorecard, then addes the value to the potential column
 function scoreUpper(diceHand, number){
-    let total = 0;
+    //check if the section has been scored already
+    if(document.getElementById(number+"upperPotential").getAttribute("class") === 'unselectedScore'){
 
-    for(let i=0;i<5;i++){
-        if(parseInt(diceHand[i])===parseInt(number)){
-            total+=number;
+        let total = 0;
+
+        for(let i=0;i<5;i++){
+            if(parseInt(diceHand[i])===parseInt(number)){
+                total+=number;
+            }
         }
-    }
 
-    updateElementValue(number+"upperPotential",total);
-    console.log("Total for "+number+" upper section is: "+total);
+        updateElementValue(number+"upperPotential",total);
+        console.log("Total for "+number+" upper section is: "+total);
+    }
 }
 
 //function for scoring 3 of a kind
 function is3ofaKind(diceHand){
-    console.log("Scoring 3 of a Kind...\n");
-    let score = 0;
-    for(let i=0;i<3;i++){
-        if(parseInt(diceHand[i]) === parseInt(diceHand[i+1]) && parseInt(diceHand[i+1]) === parseInt(diceHand[i+2])){
-            score = totalDice(diceHand);
-            break;
+    if(document.getElementById("3ofaKindPotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring 3 of a Kind...\n");
+        let score = 0;
+        for(let i=0;i<3;i++){
+            if(parseInt(diceHand[i]) === parseInt(diceHand[i+1]) && parseInt(diceHand[i+1]) === parseInt(diceHand[i+2])){
+                score = totalDice(diceHand);
+                break;
+            }
         }
+        console.log("Three of a kind, total is: "+score);
+        updateElementValue("3ofaKindPotential",score);
     }
-    console.log("Three of a kind, total is: "+score);
-    updateElementValue("3ofaKindPotential",score);
 }
 
 //function for scoring 4 of a kind
 function is4ofaKind(diceHand){
-    console.log("Scoring 4 of a Kind...\n");
-    let score = 0;
-    for(let i=0;i<2;i++){
-        if(parseInt(diceHand[i]) === parseInt(diceHand[i+1]) && parseInt(diceHand[i+1]) === parseInt(diceHand[i+2]) && parseInt(diceHand[i+2]) === parseInt(diceHand[i+3])){
-            score = totalDice(diceHand);
-            break;
+    if(document.getElementById("4ofaKindPotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring 4 of a Kind...\n");
+        let score = 0;
+        for(let i=0;i<2;i++){
+            if(parseInt(diceHand[i]) === parseInt(diceHand[i+1]) && parseInt(diceHand[i+1]) === parseInt(diceHand[i+2]) && parseInt(diceHand[i+2]) === parseInt(diceHand[i+3])){
+                score = totalDice(diceHand);
+                break;
+            }
         }
-    }
 
-    console.log("Four of a kind, total is: "+score);
-    updateElementValue("4ofaKindPotential",score);
+        console.log("Four of a kind, total is: "+score);
+        updateElementValue("4ofaKindPotential",score);
+    }
 }
 
 //function for scoring Full House
 function isFullHouse(diceHand){
-    console.log("Scoring Full House");
-    if((parseInt(diceHand[0]) === parseInt(diceHand[1]) && parseInt(diceHand[2]) === parseInt(diceHand[3]) && parseInt(diceHand[3]) === parseInt(diceHand[4])) || 
-    (parseInt(diceHand[3]) === parseInt(diceHand[4]) && parseInt(diceHand[0]) === parseInt(diceHand[1]) && parseInt(diceHand[1]) === parseInt(diceHand[2]))){
-        console.log("Full House: "+25);
-        updateElementValue("fullHousePotential",25);
-    }
-    else {
-        updateElementValue("fullHousePotential",0);
+    if(document.getElementById("fullHousePotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring Full House");
+        if((parseInt(diceHand[0]) === parseInt(diceHand[1]) && parseInt(diceHand[2]) === parseInt(diceHand[3]) && parseInt(diceHand[3]) === parseInt(diceHand[4]) && parseInt(diceHand[0]) !== parseInt(diceHand[4])) || 
+        (parseInt(diceHand[3]) === parseInt(diceHand[4]) && parseInt(diceHand[0]) === parseInt(diceHand[1]) && parseInt(diceHand[1]) === parseInt(diceHand[2]) && parseInt(diceHand[0]) !== parseInt(diceHand[4]))){
+            console.log("Full House: "+25);
+            updateElementValue("fullHousePotential",25);
+        }
+        else {
+            updateElementValue("fullHousePotential",0);
+        }
     }
 }
 
 //function for scoring Small Straight
 function isSmallStraight(diceHand){
-    console.log("Scoring Small Straight");
+    if(document.getElementById("smallStraightPotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring Small Straight");
 
-    //copy the diceHand Array
-    let diceHandCopy = [...diceHand];
+        //copy the diceHand Array
+        let diceHandCopy = [...diceHand];
 
-    //remove duplicate elements
-    for(let i=0;i<5;i++){
-        if(parseInt(diceHandCopy[i])===parseInt(diceHandCopy[i+1])){
-            diceHandCopy.splice(i,1);
+        //remove duplicate elements
+        for(let i=0;i<5;i++){
+            if(parseInt(diceHandCopy[i])===parseInt(diceHandCopy[i+1])){
+                diceHandCopy.splice(i,1);
+            }
         }
-    }
-    if(parseInt(diceHandCopy[0]+1) === parseInt(diceHandCopy[1]) && parseInt(diceHandCopy[1]+1) === parseInt(diceHandCopy[2])&& parseInt(diceHandCopy[2]+1) === parseInt(diceHandCopy[3])){
-        console.log("Small Straight: "+30);
-        updateElementValue("smallStraightPotential",30);
-    }
-    else {
-        updateElementValue("smallStraightPotential",0);
+        if(parseInt(diceHandCopy[0]+1) === parseInt(diceHandCopy[1]) && parseInt(diceHandCopy[1]+1) === parseInt(diceHandCopy[2])&& parseInt(diceHandCopy[2]+1) === parseInt(diceHandCopy[3])){
+            console.log("Small Straight: "+30);
+            updateElementValue("smallStraightPotential",30);
+        }
+        else {
+            updateElementValue("smallStraightPotential",0);
+        }
     }
 }
 
 //function for scoring Large Straight
 function isLargeStraight(diceHand){
-    console.log("Scoring Large Straight");
-    if(parseInt(diceHand[0]+1) === parseInt(diceHand[1]) && parseInt(diceHand[1]+1) === parseInt(diceHand[2]) && parseInt(diceHand[2]+1) === parseInt(diceHand[3]) && parseInt(diceHand[3]+1) === parseInt(diceHand[4])){
-        console.log("Large Straight: "+40);
-        updateElementValue("largeStraightPotential",40);
-    }
-    else {
-        updateElementValue("largeStraightPotential",0);
+    if(document.getElementById("largeStraightPotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring Large Straight");
+        if(parseInt(diceHand[0]+1) === parseInt(diceHand[1]) && parseInt(diceHand[1]+1) === parseInt(diceHand[2]) && parseInt(diceHand[2]+1) === parseInt(diceHand[3]) && parseInt(diceHand[3]+1) === parseInt(diceHand[4])){
+            console.log("Large Straight: "+40);
+            updateElementValue("largeStraightPotential",40);
+        }
+        else {
+            updateElementValue("largeStraightPotential",0);
+        }
     }
 }
 
 //function for scoring Yahtzee
 function isYahtzee(diceHand){
-    console.log("Scoring Yahtzee");
-    if(parseInt(diceHand[0]) === parseInt(diceHand[1]) && parseInt(diceHand[1]) === parseInt(diceHand[2]) &&  parseInt(diceHand[2]) === parseInt(diceHand[3]) && parseInt(diceHand[3]) === parseInt(diceHand[4])){
-        console.log("Yahtzee!!! "+50);
-        updateElementValue("yahtzeePotential",50);
-    }
-    else {
-        updateElementValue("yahtzeePotential",0);
+    if(document.getElementById("yahtzeePotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring Yahtzee");
+        if(parseInt(diceHand[0]) === parseInt(diceHand[1]) && parseInt(diceHand[1]) === parseInt(diceHand[2]) &&  parseInt(diceHand[2]) === parseInt(diceHand[3]) && parseInt(diceHand[3]) === parseInt(diceHand[4])){
+            console.log("Yahtzee!!! "+50);
+            updateElementValue("yahtzeePotential",50);
+        }
+        else {
+            updateElementValue("yahtzeePotential",0);
+        }
     }
 }
 
 //function for scoring chance
 function isChance(diceHand){
-    console.log("Scoring Chance");
-    let score = totalDice(diceHand);
-    console.log("Chance: "+score);
-    updateElementValue("chancePotential",score)
+    if(document.getElementById("chancePotential").getAttribute("class") === 'unselectedScore'){
+        console.log("Scoring Chance");
+        let score = totalDice(diceHand);
+        console.log("Chance: "+score);
+        updateElementValue("chancePotential",score)
+    }
 }
 
 //totals all dice, used in 3 of a kind, 4 of a kind, and chance scoring
@@ -289,8 +309,15 @@ function scoreRound(){
         updateElementValue("scoreLower",(parseInt(document.getElementById("scoreLower").getAttribute("value")))+parseInt(scoreSelection[0].getAttribute("value")));
     }
 
-    scoreSelection[0].setAttribute("onclick","");
-    scoreSelection[0].setAttribute("class","unselectedScore");
+    //update relevant tags in HTML
+    completeScoring(scoreSelection[0].getAttribute("id"));
+
+    //update remove all the dice from the document
+    removeAllChildNodes(document.getElementById("diceDiv"));
+
+    //update all of the potential columns with a zero value
+    updateUnselectedtoZero();
+
 }
 
 //adds the scoring button
@@ -303,6 +330,13 @@ function showScoringButton(){
 function updateElementValue(elementID,value){
     document.getElementById(elementID).innerHTML = value;
     document.getElementById(elementID).setAttribute("value",value);
+}
+
+//complete scoring
+function completeScoring(elementID){
+    document.getElementById(elementID).setAttribute("onclick","");
+    document.getElementById(elementID).setAttribute("class","completedScore");
+    updateElementValue(elementID,"Completed");
 }
 
 //highlights dice if selected by updating the class
@@ -351,5 +385,13 @@ function selectScore(id){
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
+    }
+}
+
+function updateUnselectedtoZero(){
+    let unselectedScores = document.getElementsByClassName("unselectedScore");
+
+    for(let i = 0; i<unselectedScores.length-1; i++){
+        updateElementValue(unselectedScores[i].getAttribute("id"),"");
     }
 }

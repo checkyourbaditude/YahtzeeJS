@@ -39,6 +39,11 @@ Trying to add features to both classes?
     color:grey
 }
 
+.completedScore {
+    background: black;
+    color: white;
+}
+
 #scoreCardTable {
     visibility: hidden;
 }
